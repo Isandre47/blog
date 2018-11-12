@@ -31,6 +31,7 @@ class BlogController extends AbstractController
     public function show($slug = 'rien')
     {
         if ($slug != 'rien'){
+            $slug = ucwords( str_replace('-', ' ', $slug));
             return $this->render('index.html.twig', ['page' => $slug]);
         }else{
             return $this->render('index.html.twig', ['page' => "Article sans titre"]);
