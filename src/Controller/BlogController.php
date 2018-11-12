@@ -28,7 +28,7 @@ class BlogController extends AbstractController
       * Correspond à la route /author/new et au name "author_new"
       * @Route("/blog/{slug}", requirements={"slug"="[a-z-0-9]*"}, methods={"GET"}, name="showslug")
       */
-    public function show($slug)
+    public function show($slug = 'rien')
     {
         if ($slug != 'rien'){
             return $this->render('index.html.twig', ['page' => $slug]);
