@@ -1920,14 +1920,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -4320,24 +4312,18 @@
         <argument>make:migration</argument>
       </call>
     </service>
-    <service id=".service_locator.zv3hrPg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="article" type="service" id=".errored..service_locator.zv3hrPg.App\Entity\Article"/>
-      </argument>
-    </service>
     <service id=".service_locator.koD3dBr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="category" type="service" id=".errored..service_locator.koD3dBr.App\Entity\Category"/>
       </argument>
     </service>
-    <service id=".service_locator.3y5vwWg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.C58dlyL" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\ArticleController::show" type="service" id=".service_locator.zv3hrPg"/>
+        <argument key="App\Controller\ArticleController::showArticles" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\CategoryController::show" type="service" id=".service_locator.koD3dBr"/>
-        <argument key="App\Controller\ArticleController:show" type="service" id=".service_locator.zv3hrPg"/>
+        <argument key="App\Controller\ArticleController:showArticles" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\CategoryController:show" type="service" id=".service_locator.koD3dBr"/>
       </argument>
     </service>
@@ -4578,7 +4564,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.3y5vwWg"/>
+      <argument type="service" id=".service_locator.C58dlyL"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -4668,7 +4654,6 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.UEpceA5" method="withContext"/>
     </service>
-    <service id=".errored..service_locator.zv3hrPg.App\Entity\Article" class="App\Entity\Article"/>
     <service id=".errored..service_locator.koD3dBr.App\Entity\Category" class="App\Entity\Category"/>
     <service id=".service_locator.HKoUR8q" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -4993,7 +4978,7 @@
     <service id="Twig\Environment" alias="twig" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.3y5vwWg"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.C58dlyL"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id=".service_locator.AoifO_3" alias=".2_ServiceLocator~RSngW61" public="false"/>

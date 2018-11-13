@@ -2,5 +2,15 @@
 
 
 {% block body %}
-    <h1>{{article.title}}</h1>
+    {{ dump(list) }}
+    {#{{ dump(list.owner) }}#}
+    {#{% for category in categories %}#}
+    {#<h2>{{ list.owner.name }}</h2>#}
+    {#{% for prout in list %}#}
+
+        {#<h4>{{ prout.title }}</h4>#}
+        {#<h4>{{ prout.content }}</h4>#}
+    {#{% endfor %}#}
+    {#{% endfor %}#}
+
 {% endblock %}

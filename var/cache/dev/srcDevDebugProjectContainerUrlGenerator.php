@@ -20,7 +20,8 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         $this->defaultLocale = $defaultLocale;
         if (null === self::$declaredRoutes) {
             self::$declaredRoutes = array(
-        'article_show' => array(array('id'), array('_controller' => 'App\\Controller\\ArticleController::show'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/article')), array(), array()),
+        'article_show' => array(array('id'), array('_controller' => 'App\\Controller\\ArticleController::showArticles'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category')), array(), array()),
+        'article_list' => array(array(), array('_controller' => 'App\\Controller\\ArticleController::showListArticles'), array(), array(array('text', '/category/')), array(), array()),
         'viewlist' => array(array(), array('_controller' => 'App\\Controller\\BlogController::list'), array(), array(array('text', '/list')), array(), array()),
         'showslug' => array(array('slug'), array('slug' => 'rien', '_controller' => 'App\\Controller\\BlogController::show'), array('slug' => '[a-z-0-9]*'), array(array('variable', '/', '[a-z-0-9]*', 'slug'), array('text', '/blog')), array(), array()),
         'category_show' => array(array('id'), array('_controller' => 'App\\Controller\\CategoryController::show'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category')), array(), array()),
