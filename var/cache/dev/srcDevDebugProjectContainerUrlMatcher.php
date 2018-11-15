@@ -100,8 +100,8 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     .'|/category(?'
                         .'|\\-article/([^/]++)(*:37)'
                         .'|/([^/]++)(?'
-                            .'|(*:56)'
-                            .'|/all(*:67)'
+                            .'|/all(*:60)'
+                            .'|(*:67)'
                         .')'
                     .')'
                     .'|/blog(?:/([a-z-0-9]*))?(*:99)'
@@ -129,8 +129,8 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     default:
                         $routes = array(
                             37 => array(array('_route' => 'article_show', '_controller' => 'App\\Controller\\ArticleController::showArticles'), array('id'), null, null),
-                            56 => array(array('_route' => 'category_show', '_controller' => 'App\\Controller\\CategoryController::show'), array('id'), null, null),
-                            67 => array(array('_route' => 'show_by_categoryshow', '_controller' => 'App\\Controller\\CategoryController::showAllByCategory'), array('name'), null, null),
+                            60 => array(array('_route' => 'show_by_category', '_controller' => 'App\\Controller\\BlogController::showAllByCategory'), array('name'), null, null),
+                            67 => array(array('_route' => 'category_show', '_controller' => 'App\\Controller\\CategoryController::show'), array('id'), null, null),
                             99 => array(array('_route' => 'showslug', 'slug' => 'rien', '_controller' => 'App\\Controller\\BlogController::show'), array('slug'), array('GET' => 0), null),
                             137 => array(array('_route' => '_twig_error_test', '_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code', '_format'), null, null),
                             157 => array(array('_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'), array('token'), null, null),

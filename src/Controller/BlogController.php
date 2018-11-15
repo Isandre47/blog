@@ -10,6 +10,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Category;
 
 
 class BlogController extends AbstractController
@@ -36,5 +38,16 @@ class BlogController extends AbstractController
         }else{
             return $this->render('index.html.twig', ['page' => "Article sans titre"]);
         }
+    }
+
+    /**
+     * @Route("/category/{name}/all", name="show_by_category")
+     */
+    public function showAllByCategory(Category $category) :Response
+    {
+//        var_dump($category);
+        $categories = $category->getArticles();
+//        var_dump($articles);
+        return $this->render('article.html.twig', ['list'=> $categories]);
     }
 }

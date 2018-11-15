@@ -23,15 +23,4 @@ class CategoryController extends AbstractController
     {
         return $this->render('category.html.twig', ['category'=>$category]);
     }
-
-    /**
-     * @Route("/category/{name}/all", name="show_by_categoryshow")
-     */
-    public function showAllByCategory(Category $category) :Response
-    {
-//        var_dump($category);
-        $articles = $category->getArticles();
-//        var_dump($articles);
-        return $this->render('article.html.twig', ['list'=> $articles]);
-    }
 }
