@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Category;
+use App\Entity\Article;
 
 
 class BlogController extends AbstractController
@@ -49,5 +50,29 @@ class BlogController extends AbstractController
         $categories = $category->getArticles();
 //        var_dump($articles);
         return $this->render('article.html.twig', ['list'=> $categories]);
+    }
+
+    /**
+     * Show all row from article's entity
+     *
+     * @Route("/", name="blog_index")
+     * @return Response A response instance
+     */
+    public function index() : Response
+    {
+        $articles = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findAll();
+
+        if (!$articles) {
+            throw $this->createNotFoundException(
+                'No article found in article\'s table.'
+            );
+        }
+
+        return $this->render(
+            'blog/index.html.twig',
+            ['articles' => $articles]
+        );
     }
 }
