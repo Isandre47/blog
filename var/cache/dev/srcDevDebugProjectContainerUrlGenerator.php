@@ -22,11 +22,11 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
             self::$declaredRoutes = array(
         'article_show' => array(array('id'), array('_controller' => 'App\\Controller\\ArticleController::showArticles'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category-article')), array(), array()),
         'viewlist' => array(array(), array('_controller' => 'App\\Controller\\BlogController::__construct'), array(), array(array('text', '/list')), array(), array()),
-        'blog_show' => array(array('slug'), array('slug' => null, '_controller' => 'App\\Controller\\BlogController::show'), array('slug' => '[a-zA-Z0-9-]+'), array(array('variable', '/', '[a-zA-Z0-9-]+', 'slug')), array(), array()),
-        'show_by_category' => array(array('name'), array('_controller' => 'App\\Controller\\BlogController::showAllByCategory'), array(), array(array('text', '/all'), array('variable', '/', '[^/]++', 'name'), array('text', '/category')), array(), array()),
         'blog_index' => array(array(), array('_controller' => 'App\\Controller\\BlogController::index'), array(), array(array('text', '/blog/')), array(), array()),
+        'show_by_category' => array(array('name'), array('_controller' => 'App\\Controller\\BlogController::showAllByCategory'), array(), array(array('text', '/all'), array('variable', '/', '[^/]++', 'name'), array('text', '/category')), array(), array()),
         'blog_show_category' => array(array('category'), array('_controller' => 'App\\Controller\\BlogController::showByCategory'), array(), array(array('variable', '/', '[^/]++', 'category'), array('text', '/category')), array(), array()),
         'category_show' => array(array('id'), array('_controller' => 'App\\Controller\\CategoryController::show'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category')), array(), array()),
+        'category_add' => array(array(), array('_controller' => 'App\\Controller\\CategoryController::addCategory'), array(), array(array('text', '/blog/category/')), array(), array()),
         'homepage' => array(array(), array('_controller' => 'App\\Controller\\HomeController::index'), array(), array(array('text', '/')), array(), array()),
         'app_lucky_number' => array(array(), array('_controller' => 'App\\Controller\\LuckyController::number'), array(), array(array('text', '/lucky/number')), array(), array()),
         '_twig_error_test' => array(array('code', '_format'), array('_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code' => '\\d+'), array(array('variable', '.', '[^/]++', '_format'), array('variable', '/', '\\d+', 'code'), array('text', '/_error')), array(), array()),
