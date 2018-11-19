@@ -1,0 +1,35 @@
+{# templates/blog/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    {#{{ dump(article) }}#}
+    {{ dump(articles) }}
+    {{ dump(category) }}
+    <div>
+        <h1>Category : {{ category.name  }}</h1>
+    <table>
+    <tr>
+        <td style="width: 10%">Id</td>
+        <td style="width: 20%">Title</td>
+        <td style="width: 20%">Content</td>
+    </tr>
+    {% for prout in articles %}
+
+            <tr>
+                <td>{{ prout.id }}</td>
+                <td>{{ prout.title }}</td>
+                <td>{{ prout.content }}</td>
+            </tr>
+
+        {#<p>{{ article.content }}</p>#}
+    </div>
+
+    {%  endfor %}
+    </table>
+
+
+{% endblock %}

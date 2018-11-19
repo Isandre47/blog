@@ -22,23 +22,57 @@ class BlogController extends AbstractController
      * Correspond à la route /author/list et au name "author_list"
      * @Route("/list", name="viewlist")
      */
+
+
+    public function __construct()
+    {
+        return "BOBBY THE BEST";
+    }
+
     public function list()
     {
         return $this->render('index.html.twig');
     }
 
-     /**
-      * Correspond à la route /author/new et au name "author_new"
-      * @Route("/blog/{slug}", requirements={"slug"="[a-z-0-9]*"}, methods={"GET"}, name="showslug")
-      */
-    public function show($slug = 'rien')
+    /**
+     * Getting a article with a formatted slug for title
+     *
+     * @param string $slug The slugger
+     *
+     * @Route("/{slug<^[a-zA-Z0-9-]+$>}",
+     *     defaults={"slug" = null},
+     *     name="blog_show")
+     *  @return Response A response instance
+     */
+    public function show($slug) : Response
     {
-        if ($slug != 'rien'){
-            $slug = ucwords( str_replace('-', ' ', $slug));
-            return $this->render('index.html.twig', ['page' => $slug]);
-        }else{
-            return $this->render('index.html.twig', ['page' => "Article sans titre"]);
+        if (!$slug) {
+            throw $this
+                ->createNotFoundException('No slug has been sent to toto an article in article\'s table.');
         }
+
+        $slug = preg_replace(
+            '/-/',
+            ' ', ucwords(trim(strip_tags($slug)), "-")
+        );
+
+        $article = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findOneBy(['title' => mb_strtolower($slug)]);
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'No article with '.$slug.' title, found in article\'s table.'
+            );
+        }
+
+        return $this->render(
+            'blog/show.html.twig',
+            [
+                'article' => $article,
+                'slug' => $slug,
+            ]
+        );
     }
 
     /**
@@ -46,16 +80,14 @@ class BlogController extends AbstractController
      */
     public function showAllByCategory(Category $category) :Response
     {
-//        var_dump($category);
         $categories = $category->getArticles();
-//        var_dump($articles);
         return $this->render('article.html.twig', ['list'=> $categories]);
     }
 
     /**
      * Show all row from article's entity
      *
-     * @Route("/", name="blog_index")
+     * @Route("blog/", name="blog_index")
      * @return Response A response instance
      */
     public function index() : Response
@@ -74,5 +106,19 @@ class BlogController extends AbstractController
             'blog/index.html.twig',
             ['articles' => $articles]
         );
+    }
+
+    /**
+     * @Route("/category/{category}", name="blog_show_category")
+     */
+    public function showByCategory(string $category) :Response
+    {
+
+        $category = $this->getDoctrine()->getRepository(Category::class)->findOneByName($category);
+
+        $articles = $this->getDoctrine()->getRepository(Article::class)
+            ->findBy(array('category' => $category), null, 3);
+
+        return $this->render('blog/category.html.twig', ['articles'=>$articles, 'category'=>$category] );
     }
 }

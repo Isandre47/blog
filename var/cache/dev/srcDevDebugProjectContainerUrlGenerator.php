@@ -21,10 +21,11 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         if (null === self::$declaredRoutes) {
             self::$declaredRoutes = array(
         'article_show' => array(array('id'), array('_controller' => 'App\\Controller\\ArticleController::showArticles'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category-article')), array(), array()),
-        'viewlist' => array(array(), array('_controller' => 'App\\Controller\\BlogController::list'), array(), array(array('text', '/list')), array(), array()),
-        'showslug' => array(array('slug'), array('slug' => 'rien', '_controller' => 'App\\Controller\\BlogController::show'), array('slug' => '[a-z-0-9]*'), array(array('variable', '/', '[a-z-0-9]*', 'slug'), array('text', '/blog')), array(), array()),
+        'viewlist' => array(array(), array('_controller' => 'App\\Controller\\BlogController::__construct'), array(), array(array('text', '/list')), array(), array()),
+        'blog_show' => array(array('slug'), array('slug' => null, '_controller' => 'App\\Controller\\BlogController::show'), array('slug' => '[a-zA-Z0-9-]+'), array(array('variable', '/', '[a-zA-Z0-9-]+', 'slug')), array(), array()),
         'show_by_category' => array(array('name'), array('_controller' => 'App\\Controller\\BlogController::showAllByCategory'), array(), array(array('text', '/all'), array('variable', '/', '[^/]++', 'name'), array('text', '/category')), array(), array()),
-        'blog_index' => array(array(), array('_controller' => 'App\\Controller\\BlogController::index'), array(), array(array('text', '/')), array(), array()),
+        'blog_index' => array(array(), array('_controller' => 'App\\Controller\\BlogController::index'), array(), array(array('text', '/blog/')), array(), array()),
+        'blog_show_category' => array(array('category'), array('_controller' => 'App\\Controller\\BlogController::showByCategory'), array(), array(array('variable', '/', '[^/]++', 'category'), array('text', '/category')), array(), array()),
         'category_show' => array(array('id'), array('_controller' => 'App\\Controller\\CategoryController::show'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category')), array(), array()),
         'homepage' => array(array(), array('_controller' => 'App\\Controller\\HomeController::index'), array(), array(array('text', '/')), array(), array()),
         'app_lucky_number' => array(array(), array('_controller' => 'App\\Controller\\LuckyController::number'), array(), array(array('text', '/lucky/number')), array(), array()),
