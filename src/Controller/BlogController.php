@@ -42,12 +42,10 @@ class BlogController extends AbstractController
      * @Route("blog/", name="blog_index")
      * @return Response A response instance
      */
-    public function index() : Response
+    public function index(Request $request) : Response
     {
 
-        $articles = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findAll();
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
         if (!$articles) {
             throw $this->createNotFoundException(
@@ -55,11 +53,12 @@ class BlogController extends AbstractController
             );
         }
 
-        $form = $this->createForm(
-            ArticleSearchType::class,
-            null,
-            ['method' => Request::METHOD_GET]
-        );
+        $form = $this->createForm(ArticleSearchType::class,null, ['method' => Request::METHOD_GET]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            $data = $form->getData();
+        }
 
         return $this->render('blog/index.html.twig',[
             'articles' => $articles,

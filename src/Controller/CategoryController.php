@@ -12,7 +12,7 @@ use App\Entity\Category;
 use App\Entity\Article;
 use App\Form\ArticleSearchType;
 use App\Form\CategoryType;
-use http\Env\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Tests\Compiler\C;
 use Symfony\Component\Form\FormInterface;
@@ -28,17 +28,24 @@ class CategoryController extends AbstractController
     {
         return $this->render('category2.html.twig', ['category'=>$category]);
     }
+
     /**
      * @Route("blog/category/", name="category_add")
      */
-
-    public function addCategory() :Response
+    public function addCategory(Request $request) :Response
     {
-        $cateogry = new Category();
-        $form2 = $this->createForm(CategoryType::class, $cateogry);
+        $category = new Category();
+        $form2 = $this->createForm(CategoryType::class, $category, ['method' => Request::METHOD_GET]);
+        $form2->handleRequest($request);
+
+        if($form2->isSubmitted()){
+            $category->getName($form2);
+        }
+
         return $this->render('blog/addCat.html.twig',[
             'form2' => $form2->createView(),
         ]);
+
     }
 
 
