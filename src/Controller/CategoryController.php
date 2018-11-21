@@ -35,16 +35,22 @@ class CategoryController extends AbstractController
     public function addCategory(Request $request) :Response
     {
         $category = new Category();
+        $list_cat = $this->getDoctrine()->getRepository(Category::class)->findAll();
         $form2 = $this->createForm(CategoryType::class, $category, ['method' => Request::METHOD_GET]);
         $form2->handleRequest($request);
 
         if($form2->isSubmitted()){
-            $category->getName($form2);
+//            dump($toto); die;
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form2->getData());
+            $em->flush();
+            $list_cat = $this->getDoctrine()->getRepository(Category::class)->findAll();
+            return $this->render('blog/addCat.html.twig', [
+                'form2' => $form2->createView(), 'list' => $list_cat]);
         }
 
         return $this->render('blog/addCat.html.twig',[
-            'form2' => $form2->createView(),
-        ]);
+            'form2' => $form2->createView(), 'list' => $list_cat]);
 
     }
 
