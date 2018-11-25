@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Form\ArticleSearchType;
+use App\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,6 +55,7 @@ class BlogController extends AbstractController
         }
 
         $form = $this->createForm(ArticleSearchType::class,null, ['method' => Request::METHOD_GET]);
+        $form2 = $this->createForm(ArticleType::class,null, ['method' => Request::METHOD_GET]);
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -63,6 +65,7 @@ class BlogController extends AbstractController
         return $this->render('blog/index.html.twig',[
             'articles' => $articles,
             'form' => $form->createView(),
+            'form2' => $form2->createView(),
         ]);
     }
 

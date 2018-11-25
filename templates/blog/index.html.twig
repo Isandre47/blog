@@ -7,6 +7,13 @@
 
 {% block body %}
 
+    {{ form_start(form2) }}
+    {{ form_row(form2.title) }}
+    {{ form_row(form2.content) }}
+    {{ form_end(form2) }}
+
+    <hr>
+
     {{ form_start(form) }}
     {{ form_row(form.searchField) }}
     <button type="submit" name="btnSearch">Rechercher</button>
@@ -16,7 +23,7 @@
 
     <hr>
     <div>
-     {% for toto in articles |slice(0,2) %}
+     {% for toto in articles %}
         <h1>Real article s title : {{ toto.title }}</h1>
         <h2>Category : {{ toto.category.name }}</h2>
         <p>{{ toto.content }}</p>
