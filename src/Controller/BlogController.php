@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\Category;
 use App\Entity\Article;
 
@@ -54,17 +55,28 @@ class BlogController extends AbstractController
             );
         }
 
-        $form = $this->createForm(ArticleSearchType::class,null, ['method' => Request::METHOD_GET]);
+//        $form = $this->createForm(ArticleSearchType::class,null, ['method' => Request::METHOD_GET]);
         $form2 = $this->createForm(ArticleType::class,null, ['method' => Request::METHOD_GET]);
-        $form->handleRequest($request);
+        $form2->handleRequest($request);
 
-        if($form->isSubmitted()){
-            $data = $form->getData();
+        if($form2->isSubmitted()){
+            $data = $form2->getData();
+//            dump($data); die;
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($data);
+            $em->flush();
+//            $list_cat = $this->getDoctrine()->getRepository(Article::class)->findAll();
+            return $this->render('blog/index.html.twig', [
+                'articles' => $articles,
+//                'form' => $form->createView(),
+                'form2' => $form2->createView(),
+//                'list' => $list_cat
+            ]);
         }
 
         return $this->render('blog/index.html.twig',[
             'articles' => $articles,
-            'form' => $form->createView(),
+//            'form' => $form->createView(),
             'form2' => $form2->createView(),
         ]);
     }

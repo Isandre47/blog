@@ -10,14 +10,15 @@
     {{ form_start(form2) }}
     {{ form_row(form2.title) }}
     {{ form_row(form2.content) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form2) }}
 
     <hr>
 
-    {{ form_start(form) }}
-    {{ form_row(form.searchField) }}
-    <button type="submit" name="btnSearch">Rechercher</button>
-    {{ form_end(form) }}
+    {#{{ form_start(form) }}#}
+    {#{{ form_row(form.searchField) }}#}
+    {#<button type="submit" name="btnSearch">Rechercher</button>#}
+    {#{{ form_end(form) }}#}
 
     <hr>
 

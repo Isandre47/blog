@@ -18,4 +18,5 @@ class ArticleSearchType extends AbstractType
     {
         $builder->add('searchField');
     }
+
 }
