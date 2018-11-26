@@ -2,15 +2,22 @@
 
 
 {% block body %}
-    {{ dump(list) }}
-    {{ dump(list.owner) }}
+    {#{{ dump(list) }}#}
+    {#{{ dump(list.owner) }}#}
+    {#{{ dump(article) }}#}
+    {#{{ dump(tag) }}#}
     {#{% for category in categories %}#}
-    <h2>{{ list.owner.name }}</h2>
-    {% for prout in list %}
+    <h2>{{ article.title }}</h2>
+    <h2>{{ article.content }}</h2>
+    {#<h2>{{ article.tags }}</h2>#}
 
-        <h4>{{ prout.title }}</h4>
-        <h4>{{ prout.content }}</h4>
-    {% endfor %}
-    {#{% endfor %}#}
+    <strong>Tags :</strong>
+    <ul>
+        {% for tag in article.tags %}
+            <a href="{{ path('tag_show', {'name': tag.name}) }}"><li>{{ tag.name }} </li></a>
+        {% else %}
+            <li>No tags for this article</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

@@ -3,32 +3,38 @@
 
 {#{% block title %}{{ slug }}{% endblock %}#}
 
-{% block stylesheets %}{% endblock %}
-
 {% block body %}
+    {#{{ dump(articles) }}#}
+    {#{{ form_start(form2) }}#}
+    {#{{ form_row(form2.title) }}#}
+    {#{{ form_row(form2.content) }}#}
+    {#<button class="btn">{{ button_label|default('Save') }}</button>#}
+    {#{{ form_end(form2) }}#}
 
-    {{ form_start(form2) }}
-    {{ form_row(form2.title) }}
-    {{ form_row(form2.content) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form2) }}
-
-    <hr>
+    {#<hr>#}
 
     {#{{ form_start(form) }}#}
     {#{{ form_row(form.searchField) }}#}
     {#<button type="submit" name="btnSearch">Rechercher</button>#}
     {#{{ form_end(form) }}#}
 
-    <hr>
+    {#<hr>#}
 
-    <hr>
+    {#<hr>#}
     <div>
      {% for toto in articles %}
         <h1>Titre : {{ toto.title }}</h1>
         <h2>Category : {{ toto.category.name }}</h2>
         <p>{{ toto.content }}</p>
         </div>
+         <strong>Tags :</strong>
+         <ul>
+             {% for tag in toto.tags %}
+                 <a href="{{ path('tag_show', {'name': tag.name}) }}"><li>{{ tag.name }} </li></a>
+             {% else %}
+                 <li>No tags for this article</li>
+             {% endfor %}
+         </ul>
     {% endfor %}
 
 

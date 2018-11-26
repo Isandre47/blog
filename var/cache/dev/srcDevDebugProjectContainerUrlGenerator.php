@@ -20,7 +20,7 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         $this->defaultLocale = $defaultLocale;
         if (null === self::$declaredRoutes) {
             self::$declaredRoutes = array(
-        'article_show' => array(array('id'), array('_controller' => 'App\\Controller\\ArticleController::showArticles'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category-article')), array(), array()),
+        'article_show' => array(array('id'), array('_controller' => 'App\\Controller\\ArticleController::showArticles'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/article')), array(), array()),
         'viewlist' => array(array(), array('_controller' => 'App\\Controller\\BlogController::__construct'), array(), array(array('text', '/list')), array(), array()),
         'blog_index' => array(array(), array('_controller' => 'App\\Controller\\BlogController::index'), array(), array(array('text', '/blog/')), array(), array()),
         'show_by_category' => array(array('name'), array('_controller' => 'App\\Controller\\BlogController::showAllByCategory'), array(), array(array('text', '/all'), array('variable', '/', '[^/]++', 'name'), array('text', '/category')), array(), array()),
@@ -29,6 +29,7 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         'category_add' => array(array(), array('_controller' => 'App\\Controller\\CategoryController::addCategory'), array(), array(array('text', '/blog/category/')), array(), array()),
         'homepage' => array(array(), array('_controller' => 'App\\Controller\\HomeController::index'), array(), array(array('text', '/')), array(), array()),
         'app_lucky_number' => array(array(), array('_controller' => 'App\\Controller\\LuckyController::number'), array(), array(array('text', '/lucky/number')), array(), array()),
+        'tag_show' => array(array('name'), array('_controller' => 'App\\Controller\\TagController::showArticles'), array(), array(array('variable', '/', '[^/]++', 'name'), array('text', '/tag')), array(), array()),
         '_twig_error_test' => array(array('code', '_format'), array('_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code' => '\\d+'), array(array('variable', '.', '[^/]++', '_format'), array('variable', '/', '\\d+', 'code'), array('text', '/_error')), array(), array()),
         '_wdt' => array(array('token'), array('_controller' => 'web_profiler.controller.profiler::toolbarAction'), array(), array(array('variable', '/', '[^/]++', 'token'), array('text', '/_wdt')), array(), array()),
         '_profiler_home' => array(array(), array('_controller' => 'web_profiler.controller.profiler::homeAction'), array(), array(array('text', '/_profiler/')), array(), array()),

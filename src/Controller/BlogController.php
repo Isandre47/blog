@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Tag;
 use App\Form\ArticleSearchType;
 use App\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,28 +56,20 @@ class BlogController extends AbstractController
             );
         }
 
-//        $form = $this->createForm(ArticleSearchType::class,null, ['method' => Request::METHOD_GET]);
-        $form2 = $this->createForm(ArticleType::class,null, ['method' => Request::METHOD_GET]);
+        $form2 = $this->createForm(ArticleType::class);
         $form2->handleRequest($request);
 
         if($form2->isSubmitted()){
             $data = $form2->getData();
-//            dump($data); die;
             $em = $this->getDoctrine()->getManager();
             $em->persist($data);
             $em->flush();
-//            $list_cat = $this->getDoctrine()->getRepository(Article::class)->findAll();
             return $this->render('blog/index.html.twig', [
-                'articles' => $articles,
-//                'form' => $form->createView(),
-                'form2' => $form2->createView(),
-//                'list' => $list_cat
-            ]);
+                'articles' => $articles, 'form2' => $form2->createView()]);
         }
 
         return $this->render('blog/index.html.twig',[
             'articles' => $articles,
-//            'form' => $form->createView(),
             'form2' => $form2->createView(),
         ]);
     }

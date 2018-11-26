@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Tests\Compiler\C;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,11 +20,10 @@ use Symfony\Component\HttpFoundation\Response;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/category-article/{id}", name="article_show")
+     * @Route("/article/{id}", name="article_show")
      */
-    public function showArticles(Category $category) :Response
+    public function showArticles(Article $article) :Response
     {
-        $articlesName = $category->getArticles($category);
-        return $this->render('article.html.twig', ['list'=> $articlesName]);
+        return $this->render('article.html.twig', ['article'=> $article]);
     }
 }

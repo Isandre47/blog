@@ -1,0 +1,9 @@
+{#{{ dump(list)}}#}
+
+<h1>Tag: {{ list.owner.name }}</h1>
+{% for toto in list %}
+  <a href="{{ path('article_show', {'id': toto.id}) }}"><h2>Titre: {{ toto.title }}</h2></a>
+  <h2>Titre: {{ toto.title }}</h2></a>
+  <h2>Titre: {{ toto.id }}</h2></a>
+  <p>{{ toto.content }} </p>
+{% endfor %}
