@@ -39,6 +39,11 @@ class Article
      */
     private $tags;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -109,6 +114,18 @@ class Article
             $this->tags->removeElement($tag);
             $tag->removeArticle($this);
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

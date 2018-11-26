@@ -23,7 +23,6 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         'article_show' => array(array('id'), array('_controller' => 'App\\Controller\\ArticleController::showArticles'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/article')), array(), array()),
         'viewlist' => array(array(), array('_controller' => 'App\\Controller\\BlogController::__construct'), array(), array(array('text', '/list')), array(), array()),
         'blog_index' => array(array(), array('_controller' => 'App\\Controller\\BlogController::index'), array(), array(array('text', '/blog/')), array(), array()),
-        'show_by_category' => array(array('name'), array('_controller' => 'App\\Controller\\BlogController::showAllByCategory'), array(), array(array('text', '/all'), array('variable', '/', '[^/]++', 'name'), array('text', '/category')), array(), array()),
         'blog_show_category' => array(array('category'), array('_controller' => 'App\\Controller\\BlogController::showByCategory'), array(), array(array('variable', '/', '[^/]++', 'category'), array('text', '/category')), array(), array()),
         'category_show' => array(array('id'), array('_controller' => 'App\\Controller\\CategoryController::show'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/category')), array(), array()),
         'category_add' => array(array(), array('_controller' => 'App\\Controller\\CategoryController::addCategory'), array(), array(array('text', '/blog/category/')), array(), array()),

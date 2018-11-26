@@ -75,14 +75,14 @@ class BlogController extends AbstractController
     }
 
 
-    /**
-     * @Route("/category/{name}/all", name="show_by_category")
-     */
-    public function showAllByCategory(Category $category) :Response
-    {
-        $categories = $category->getArticles();
-        return $this->render('article.html.twig', ['list'=> $categories]);
-    }
+//    /**
+//     * @Route("/category/{name}/all", name="show_by_category")
+//     */
+//    public function showAllByCategory(Category $category) :Response
+//    {
+//        $categories = $category->getArticles();
+//        return $this->render('article.html.twig', ['list'=> $categories]);
+//    }
 
 //    /**
 //     * Getting a article with a formatted slug for title

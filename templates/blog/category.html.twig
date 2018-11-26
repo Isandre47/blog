@@ -7,11 +7,11 @@
 
 {% block body %}
     {#{{ dump(article) }}#}
-    {{ dump(articles) }}
-    {{ dump(category) }}
+    {#{{ dump(articles) }}#}
+    {#{{ dump(category) }}#}
     <div>
         <h1>Category : {{ category.name  }}</h1>
-    <table>
+    <table class="table table-striped bg-light table-hover">
     <tr>
         <td style="width: 10%">Id</td>
         <td style="width: 20%">Title</td>

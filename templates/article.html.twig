@@ -1,23 +1,43 @@
 {% extends "base.html.twig" %}
 
-
 {% block body %}
     {#{{ dump(list) }}#}
     {#{{ dump(list.owner) }}#}
     {#{{ dump(article) }}#}
     {#{{ dump(tag) }}#}
     {#{% for category in categories %}#}
-    <h2>{{ article.title }}</h2>
-    <h2>{{ article.content }}</h2>
+    {#<h2>{{ article.title }}</h2>#}
+    {#<h2>{{ article.content }}</h2>#}
     {#<h2>{{ article.tags }}</h2>#}
 
-    <strong>Tags :</strong>
-    <ul>
-        {% for tag in article.tags %}
-            <a href="{{ path('tag_show', {'name': tag.name}) }}"><li>{{ tag.name }} </li></a>
-        {% else %}
-            <li>No tags for this article</li>
-        {% endfor %}
-    </ul>
+    {#<strong>Tags :</strong>#}
+    {#<ul>#}
+        {#{% for tag in article.tags %}#}
+            {#<a href="{{ path('tag_show', {'name': tag.name}) }}"><li>{{ tag.name }} </li></a>#}
+        {#{% else %}#}
+            {#<li>No tags for this article</li>#}
+        {#{% endfor %}#}
+    {#</ul>#}
+
+
+        <div class="row bg-info m-3 shadow justify-content-center">
+            <div class="col-12 text-center jumbotron bg-info">
+                <h1 class="display-2">{{ article.title }}</h1>
+            </div>
+            <div class="col-4">
+                <img class="img-fluid rounded m-4 shadow" src={%  if article.picture == true %} "/{{ article.picture }}" {% else %} "https://via.placeholder.com/300" {% endif%} alt="Card image cap">
+            </div>
+            <div class="col-7 m-5">
+
+                <p class="p-3">{{ article.content }}</p>
+                <ul class="list-unstyled">
+                    {% for tag in article.tags %}
+                        <a href="{{ path('tag_show', {'name': tag.name}) }}"><li>#{{ tag.name }} </li></a>
+                    {% else %}
+                        <li>No tags for this article</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 
 {% endblock %}

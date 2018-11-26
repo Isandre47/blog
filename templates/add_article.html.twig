@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+<div class="form-group bg-warning">
+    <h3>Ajouter un article</h3>
+    {{ form_start(form2) }}
+    {{ form_row(form2.title) }}
+    {{ form_row(form2.content) }}
+    <div class="form-control">
+        {{ form_row(form2.category) }}
+    </div>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form2) }}
+</div>

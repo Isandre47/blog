@@ -5,11 +5,43 @@
 
 {% block body %}
     {#{{ dump(articles) }}#}
-    {#{{ form_start(form2) }}#}
-    {#{{ form_row(form2.title) }}#}
-    {#{{ form_row(form2.content) }}#}
-    {#<button class="btn">{{ button_label|default('Save') }}</button>#}
-    {#{{ form_end(form2) }}#}
+        <div class="form-group bg-warning">
+            <h3>Ajouter un article</h3>
+            {{ form_start(form2) }}
+            {{ form_row(form2.title) }}
+            {{ form_row(form2.content) }}
+            <div class="form-control">
+                {{ form_row(form2.category) }}
+            </div>
+
+            <button class="btn">{{ button_label|default('Save') }}</button>
+            {{ form_end(form2) }}
+        </div>
+
+    {% for toto in articles %}
+        <div class="row bg-info m-3 shadow">
+            <div class="col-4">
+                    <img class="img-fluid rounded m-4 shadow" src={%  if toto.picture == true %} "/{{ toto.picture }}" {% else %} "https://via.placeholder.com/500" {% endif%} alt="Card image cap">
+                    {#<img class="img-fluid rounded m-4 shadow" src="/{{ toto.picture}}" alt="Card image cap">#}
+            </div>
+            <div class="col-7 m-5">
+                <h5>{{ toto.title }}</h5>
+                <p class="p-3">{{ toto.content }}</p>
+                <a href="{{ path('article_show', {'id': toto.id}) }}" class="btn btn-primary p-2 mb-3">En savoir plus</a>
+                <ul class="list-unstyled">
+                    {% for tag in toto.tags %}
+                        <a href="{{ path('tag_show', {'name': tag.name}) }}"><li>#{{ tag.name }} </li></a>
+                    {% else %}
+                        <li>No tags for this article</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
+
 
     {#<hr>#}
 
@@ -21,21 +53,4 @@
     {#<hr>#}
 
     {#<hr>#}
-    <div>
-     {% for toto in articles %}
-        <h1>Titre : {{ toto.title }}</h1>
-        <h2>Category : {{ toto.category.name }}</h2>
-        <p>{{ toto.content }}</p>
-        </div>
-         <strong>Tags :</strong>
-         <ul>
-             {% for tag in toto.tags %}
-                 <a href="{{ path('tag_show', {'name': tag.name}) }}"><li>{{ tag.name }} </li></a>
-             {% else %}
-                 <li>No tags for this article</li>
-             {% endfor %}
-         </ul>
-    {% endfor %}
 
-
-{% endblock %}
