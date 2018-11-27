@@ -5,18 +5,21 @@
 
 {% block body %}
     {#{{ dump(articles) }}#}
-        <div class="form-group bg-warning">
+        <div class="form-group bg-warning col-8">
             <h3>Ajouter un article</h3>
             {{ form_start(form2) }}
-            {{ form_row(form2.title) }}
-            {{ form_row(form2.content) }}
-            <div class="form-control">
-                {{ form_row(form2.category) }}
-            </div>
-
+            <h3>Titre</h3>
+            {{ form_widget(form2.title, {'attr':{'class':'form-control'}}) }}
+            <h3>Contenu</h3>
+            {{ form_widget(form2.content, {'attr':{'class':'form-control'}}) }}
+                {#{{ form_widget(form2.category) }}#}
+            <h3>Catégorie</h3>
+            {{ form_widget(form2.category, {'attr':{'class':'form-control'}}) }}
             <button class="btn">{{ button_label|default('Save') }}</button>
             {{ form_end(form2) }}
+            {#{{ form_widget(form2) }}#}
         </div>
+
 
     {% for toto in articles %}
         <div class="row bg-info m-3 shadow">
