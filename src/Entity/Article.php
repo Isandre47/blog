@@ -35,18 +35,24 @@ class Article
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="articles")
-     */
-    private $tags;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $picture;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="articles")
+     */
+    private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="articles")
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->name = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,6 +96,46 @@ class Article
         return $this;
     }
 
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getName(): Collection
+    {
+        return $this->name;
+    }
+
+    public function addName(Tag $name): self
+    {
+        if (!$this->name->contains($name)) {
+            $this->name[] = $name;
+            $name->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeName(Tag $name): self
+    {
+        if ($this->name->contains($name)) {
+            $this->name->removeElement($name);
+            $name->removeArticle($this);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection|Tag[]
      */
@@ -114,18 +160,6 @@ class Article
             $this->tags->removeElement($tag);
             $tag->removeArticle($this);
         }
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }

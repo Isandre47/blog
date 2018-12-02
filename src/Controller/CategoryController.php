@@ -1,59 +1,90 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nuand
- * Date: 12/11/2018
- * Time: 16:55
- */
 
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Article;
-use App\Form\ArticleSearchType;
-use App\Form\CategoryType;
-use Symfony\Component\HttpFoundation\Request;
+use App\Form\Category1Type;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\Tests\Compiler\C;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/category")
+ */
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/category/{id}", name="category_show")
+     * @Route("/", name="category_index", methods="GET")
      */
-    public function show(Category $category) :Response
+    public function index(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('category2.html.twig', ['category'=>$category]);
+        return $this->render('category/index.html.twig', ['categories' => $categoryRepository->findAll()]);
     }
 
     /**
-     * @Route("blog/category/", name="category_add")
+     * @Route("/new", name="category_new", methods="GET|POST")
      */
-    public function addCategory(Request $request) :Response
+    public function new(Request $request): Response
     {
         $category = new Category();
-        $list_cat = $this->getDoctrine()->getRepository(Category::class)->findAll();
-        $form2 = $this->createForm(CategoryType::class, $category, ['method' => Request::METHOD_GET]);
-        $form2->handleRequest($request);
+        $form = $this->createForm(Category1Type::class, $category);
+        $form->handleRequest($request);
 
-        if($form2->isSubmitted()){
-//            dump($toto); die;
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($form2->getData());
+            $em->persist($category);
             $em->flush();
-            $list_cat = $this->getDoctrine()->getRepository(Category::class)->findAll();
-            return $this->render('blog/addCat.html.twig', [
-                'form2' => $form2->createView(), 'list' => $list_cat]);
+
+            return $this->redirectToRoute('category_index');
         }
 
-        return $this->render('blog/addCat.html.twig',[
-            'form2' => $form2->createView(), 'list' => $list_cat]);
-
+        return $this->render('category/new.html.twig', [
+            'category' => $category,
+            'form' => $form->createView(),
+        ]);
     }
 
+    /**
+     * @Route("/{id}", name="category_show", methods="GET")
+     */
+    public function show(Category $category): Response
+    {
+        return $this->render('category/show.html.twig', ['category' => $category]);
+    }
 
+    /**
+     * @Route("/{id}/edit", name="category_edit", methods="GET|POST")
+     */
+    public function edit(Request $request, Category $category): Response
+    {
+        $form = $this->createForm(Category1Type::class, $category);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('category_edit', ['id' => $category->getId()]);
+        }
+
+        return $this->render('category/edit.html.twig', [
+            'category' => $category,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="category_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Category $category): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($category);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('category_index');
+    }
 }
